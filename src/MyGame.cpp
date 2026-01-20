@@ -424,13 +424,13 @@ void MyGame::on_receive(std::string cmd, std::vector<std::string>& args) {
                 int serverP2Y = std::stoi(args.at(3));
 
                 //Server reconciliation, only correct if significantly off and not moving
-                const float RECONCILIATION_THRESHOLD = 50.0f;  // Increased threshold
+                const float Reconciliation_Threshold = 50.0f; 
 
                 //Only reconcile Player 1 if we're not the one controlling them or if really far off
                 if (myPlayerNumber != 1 || !game_data.player1.isMoving) {
                     float p1Diff = distance(game_data.player1.position.x, game_data.player1.position.y,
                         serverP1X, serverP1Y);
-                    if (p1Diff > RECONCILIATION_THRESHOLD) {
+                    if (p1Diff > Reconciliation_Threshold) {
                         game_data.player1.position.x = serverP1X;
                         game_data.player1.position.y = serverP1Y;
                         std::cout << "[RECONCILIATION] P1 position corrected by server (diff: " << p1Diff << ")" << std::endl;
@@ -441,7 +441,7 @@ void MyGame::on_receive(std::string cmd, std::vector<std::string>& args) {
                 if (myPlayerNumber != 2 || !game_data.player2.isMoving) {
                     float p2Diff = distance(game_data.player2.position.x, game_data.player2.position.y,
                         serverP2X, serverP2Y);
-                    if (p2Diff > RECONCILIATION_THRESHOLD) {
+                    if (p2Diff > Reconciliation_Threshold) {
                         game_data.player2.position.x = serverP2X;
                         game_data.player2.position.y = serverP2Y;
                         std::cout << "[RECONCILIATION] P2 position corrected by server (diff: " << p2Diff << ")" << std::endl;
@@ -573,7 +573,7 @@ void MyGame::input(SDL_Event& event) {
             }
         }
 
-        //CLIENT-SIDE PREDICTION FOR MOVEMENT
+        //Client side preditcion, only for movement
         int siteIndex = findClosestSite(mouseX, mouseY);
 
         if (siteIndex >= 0 && siteIndex < 8) {
@@ -614,7 +614,7 @@ void MyGame::update(float dt) {
             game_data.canRetreat = true;
         }
     }
-
+    //For simulating movement 
     const float MOVEMENT_SPEED = 300.0f;
 
 
